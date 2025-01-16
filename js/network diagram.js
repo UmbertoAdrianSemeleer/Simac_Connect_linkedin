@@ -1,61 +1,44 @@
-// Define the network data
-const networkData = {
-  nodes: [
-    { data: { id: 'manager', label: 'Manager', image: 'https://via.placeholder.com/50' } },
-    { data: { id: 'emp1', label: 'Employee 1', image: 'https://via.placeholder.com/50' } },
-    { data: { id: 'emp2', label: 'Employee 2', image: 'https://via.placeholder.com/50' } },
-    { data: { id: 'emp3', label: 'Employee 3', image: 'https://via.placeholder.com/50' } },
-    { data: { id: 'emp4', label: 'Employee 4', image: 'https://via.placeholder.com/50' } },
-    { data: { id: 'emp5', label: 'Employee 5', image: 'https://via.placeholder.com/50' } },
-  ],
-  edges: [
-    // Reporting structure (Manager to employees)
-    { data: { source: 'manager', target: 'emp1' } },
-    { data: { source: 'manager', target: 'emp2' } },
-    { data: { source: 'manager', target: 'emp3' } },
-    { data: { source: 'manager', target: 'emp4' } },
-    { data: { source: 'manager', target: 'emp5' } },
+// Employee and connection data
+const employees = [
+  { id: '1', name: 'John Doe', department: 'IT & Technology Solutions', skills: ['Cloud Computing', 'Cybersecurity'] },
+  { id: '2', name: 'Emily White', department: 'IT & Technology Solutions', skills: ['DevOps', 'Cloud Architecture'] },
+  { id: '3', name: 'Alice Brown', department: 'Software Development', skills: ['Python', 'Machine Learning'] },
+  { id: '4', name: 'Robert Green', department: 'Cybersecurity', skills: ['Cybersecurity', 'Forensics'] },
+  { id: '5', name: 'Lucy Black', department: 'Marketing & Communications', skills: ['Content Strategy', 'Social Media'] },
+];
 
-    // Employee-to-employee connections
-    { data: { source: 'emp1', target: 'emp2' } },
-    { data: { source: 'emp2', target: 'emp3' } },
-    { data: { source: 'emp4', target: 'emp5' } },
-  ],
-};
+const connections = [
+  { source: '1', target: '2' },
+  { source: '2', target: '3' },
+  { source: '3', target: '4' },
+  { source: '1', target: '5' },
+];
 
 // Initialize Cytoscape.js
 const cy = cytoscape({
   container: document.getElementById('network-diagram'),
-
-  elements: networkData,
-
+  elements: [],
   style: [
     {
       selector: 'node',
       style: {
-        'background-image': 'data(image)',
-        'background-fit': 'cover',
-        'width': '60px',
-        'height': '60px',
-        label: 'data(label)',
-        'text-valign': 'bottom',
+        'background-color': '#66b2ff',
+        label: 'data(name)',
+        'text-valign': 'center',
         'text-halign': 'center',
+        'width': '50px',
+        'height': '50px',
         'font-size': '10px',
-        'text-background-color': '#ffffff',
-        'text-background-opacity': 0.7,
-        'text-background-padding': '5px',
-        'border-color': '#666',
-        'border-width': 2,
+        'color': '#fff',
       },
     },
     {
       selector: 'edge',
       style: {
         width: 2,
-        'line-color': '#999',
-        'target-arrow-color': '#999',
+        'line-color': '#ccc',
+        'target-arrow-color': '#ccc',
         'target-arrow-shape': 'triangle',
-        'curve-style': 'bezier',
       },
     },
     {
@@ -64,29 +47,48 @@ const cy = cytoscape({
         'background-color': '#ff6666',
         'line-color': '#ff6666',
         'target-arrow-color': '#ff6666',
-        'transition-property': 'background-color, line-color',
-        'transition-duration': '0.3s',
       },
     },
   ],
-
-  layout: {
-    name: 'cose', // A force-directed layout for better spacing
-    animate: true,
-    fit: true,
-    padding: 20,
-  },
+  layout: { name: 'breadthfirst', padding: 10 },
 });
 
-// Add interactivity: Highlight connections when clicking a node
-cy.on('tap', 'node', function (evt) {
-  const node = evt.target;
+// Function to update the diagram based on filters
+function updateDiagram(filteredEmployees) {
+  const nodes = filteredEmployees.map(emp => ({
+    data: { id: emp.id, name: emp.name },
+  }));
 
-  // Clear previous highlights
-  cy.elements().removeClass('highlighted');
+  const edges = connections.filter(conn =>
+    filteredEmployees.find(emp => emp.id === conn.source) &&
+    filteredEmployees.find(emp => emp.id === conn.target)
+  ).map(conn => ({ data: conn }));
 
-  // Highlight the selected node and its connected edges/nodes
-  node.addClass('highlighted');
-  node.connectedEdges().addClass('highlighted');
-  node.connectedEdges().targets().addClass('highlighted');
-});
+  cy.elements().remove(); // Clear existing elements
+  cy.add([...nodes, ...edges]); // Add new elements
+  cy.layout({ name: 'breadthfirst', padding: 10 }).run();
+}
+
+// Filter employees and update the diagram
+function filterEmployees() {
+  const searchValue = document.getElementById('searchInput').value.toLowerCase();
+  const departmentValue = document.getElementById('departmentFilter').value.toLowerCase();
+  const skillsValue = document.getElementById('advancedFilter').value.toLowerCase();
+
+  const filteredEmployees = employees.filter(emp => {
+    const matchesSearch = emp.name.toLowerCase().includes(searchValue);
+    const matchesDepartment = !departmentValue || emp.department.toLowerCase() === departmentValue;
+    const matchesSkills = !skillsValue || emp.skills.some(skill => skill.toLowerCase().includes(skillsValue));
+    return matchesSearch && matchesDepartment && matchesSkills;
+  });
+
+  updateDiagram(filteredEmployees);
+}
+
+// Attach event listeners for filters
+document.getElementById('searchInput').addEventListener('input', filterEmployees);
+document.getElementById('departmentFilter').addEventListener('change', filterEmployees);
+document.getElementById('advancedFilter').addEventListener('change', filterEmployees);
+
+// Initialize the diagram with all employees
+updateDiagram(employees);
