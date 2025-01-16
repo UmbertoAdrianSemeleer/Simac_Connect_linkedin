@@ -1,0 +1,50 @@
+/* General Navigation Styles */
+.navbar {
+  font-family: 'Geogrotesque', sans-serif;
+  font-size: 1rem;
+}
+
+.nav-link {
+  color: #394348; /* Default dark grey */
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #A9102C; /* Darker Simac Red on hover */
+  text-decoration: none;
+}
+
+/* Active Link Styling */
+.nav-link.active {
+  color: #CC142F; /* Simac Red for active links */
+  font-weight: bold;
+  text-decoration: underline; /* Optional for emphasis */
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #CC142F; /* Simac Red */
+  border-color: #CC142F;
+}
+
+.btn-primary:hover {
+  background-color: #A9102C;
+}
+
+.btn-outline-primary {
+  color: #CC142F;
+  border-color: #CC142F;
+}
+
+.btn-outline-primary:hover {
+  background-color: #CC142F;
+  color: white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .navbar .btn {
+    font-size: 0.9rem;
+  }
+}
