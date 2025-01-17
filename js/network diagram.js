@@ -120,3 +120,74 @@ cy.on('tap', 'node', function (evt) {
   node.connectedEdges().addClass('highlighted');
   node.connectedEdges().targets().addClass('highlighted');
 });
+
+
+
+// Filtering by Department/Service
+document.getElementById('department-filter').addEventListener('change', (event) => {
+  const filter = event.target.value;
+
+  // Reset all elements to visible
+  cy.elements().style('display', 'element');
+
+  // Apply filter based on selected department/service
+  if (filter === 'connectivity') {
+    cy.elements('node[id ^= "mgr_connectivity"], node[id ^= "emp_connectivity"], node[id ^= "client"]').style('display', 'element');
+    cy.elements('node[id ^= "mgr_"]:not([id ^= "mgr_connectivity"]), node[id ^= "emp_"]:not([id ^= "emp_connectivity"])').style('display', 'none');
+    cy.elements('edge[source ^= "mgr_connectivity"], edge[target ^= "mgr_connectivity"]').style('display', 'element');
+    cy.elements('edge:not([source ^= "mgr_connectivity"]):not([target ^= "mgr_connectivity"])').style('display', 'none');
+  } else if (filter === 'security') {
+    cy.elements('node[id ^= "mgr_security"], node[id ^= "emp_security"], node[id ^= "client"]').style('display', 'element');
+    cy.elements('node[id ^= "mgr_"]:not([id ^= "mgr_security"]), node[id ^= "emp_"]:not([id ^= "emp_security"])').style('display', 'none');
+    cy.elements('edge[source ^= "mgr_security"], edge[target ^= "mgr_security"]').style('display', 'element');
+    cy.elements('edge:not([source ^= "mgr_security"]):not([target ^= "mgr_security"])').style('display', 'none');
+  } else if (filter === 'multicloud') {
+    cy.elements('node[id ^= "mgr_multicloud"], node[id ^= "emp_multicloud"], node[id ^= "client"]').style('display', 'element');
+    cy.elements('node[id ^= "mgr_"]:not([id ^= "mgr_multicloud"]), node[id ^= "emp_"]:not([id ^= "emp_multicloud"])').style('display', 'none');
+    cy.elements('edge[source ^= "mgr_multicloud"], edge[target ^= "mgr_multicloud"]').style('display', 'element');
+    cy.elements('edge:not([source ^= "mgr_multicloud"]):not([target ^= "mgr_multicloud"])').style('display', 'none');
+  } else if (filter === 'sap') {
+    cy.elements('node[id ^= "mgr_sap"], node[id ^= "emp_sap"], node[id ^= "client"]').style('display', 'element');
+    cy.elements('node[id ^= "mgr_"]:not([id ^= "mgr_sap"]), node[id ^= "emp_"]:not([id ^= "emp_sap"])').style('display', 'none');
+    cy.elements('edge[source ^= "mgr_sap"], edge[target ^= "mgr_sap"]').style('display', 'element');
+    cy.elements('edge:not([source ^= "mgr_sap"]):not([target ^= "mgr_sap"])').style('display', 'none');
+  } else if (filter === 'support') {
+    cy.elements('node[id ^= "mgr_support"], node[id ^= "emp_support"], node[id ^= "client"]').style('display', 'element');
+    cy.elements('node[id ^= "mgr_"]:not([id ^= "mgr_support"]), node[id ^= "emp_"]:not([id ^= "emp_support"])').style('display', 'none');
+    cy.elements('edge[source ^= "mgr_support"], edge[target ^= "mgr_support"]').style('display', 'element');
+    cy.elements('edge:not([source ^= "mgr_support"]):not([target ^= "mgr_support"])').style('display', 'none');
+  } else if (filter === 'workplace') {
+    cy.elements('node[id ^= "mgr_workplace"], node[id ^= "emp_workplace"], node[id ^= "client"]').style('display', 'element');
+    cy.elements('node[id ^= "mgr_"]:not([id ^= "mgr_workplace"]), node[id ^= "emp_"]:not([id ^= "emp_workplace"])').style('display', 'none');
+    cy.elements('edge[source ^= "mgr_workplace"], edge[target ^= "mgr_workplace"]').style('display', 'element');
+    cy.elements('edge:not([source ^= "mgr_workplace"]):not([target ^= "mgr_workplace"])').style('display', 'none');
+  }
+});
+
+// Filtering by Relationships
+document.getElementById('relationship-filter').addEventListener('change', (event) => {
+  const filter = event.target.value;
+
+  // Reset all elements to visible
+  cy.elements().style('display', 'element');
+
+  // Apply filter based on selected relationship
+  if (filter === 'manager-employee') {
+    // Show only Manager-to-Employee edges and connected nodes
+    cy.elements('edge[source ^= "mgr_"][target ^= "emp_"]').style('display', 'element');
+    cy.elements('node').style('display', 'none');
+    cy.elements('edge[source ^= "mgr_"][target ^= "emp_"]').connectedNodes().style('display', 'element');
+  } else if (filter === 'manager-client') {
+    // Show only Manager-to-Client edges and connected nodes
+    cy.elements('edge[source ^= "mgr_"][target ^= "client"]').style('display', 'element');
+    cy.elements('node').style('display', 'none');
+    cy.elements('edge[source ^= "mgr_"][target ^= "client"]').connectedNodes().style('display', 'element');
+  } else if (filter === 'employee-collaboration') {
+    // Show only Employee-to-Employee edges and connected nodes (if any)
+    cy.elements('edge[source ^= "emp_"][target ^= "emp_"]').style('display', 'element');
+    cy.elements('node').style('display', 'none');
+    cy.elements('edge[source ^= "emp_"][target ^= "emp_"]').connectedNodes().style('display', 'element');
+  }
+});
+
+

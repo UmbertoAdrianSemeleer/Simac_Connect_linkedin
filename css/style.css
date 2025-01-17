@@ -1,30 +1,162 @@
-/* General Navigation Styles */
-.navbar {
-  font-family: 'Geogrotesque', sans-serif;
-  font-size: 1rem;
+/* General Styles */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #F8F9FA;
+  color: #394348;
 }
 
-.nav-link {
-  color: #394348; /* Default dark grey */
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-  color: #A9102C; /* Darker Simac Red on hover */
-  text-decoration: none;
-}
-
-/* Active Link Styling */
-.nav-link.active {
-  color: #CC142F; /* Simac Red for active links */
+h2 {
   font-weight: bold;
-  text-decoration: underline; /* Optional for emphasis */
+  color: #005876; /* Simac Blue */
+}
+
+/* Search and Filter Bar */
+.search-bar {
+  border-radius: 10px;
+  background-color: white;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar .form-control,
+.search-bar .form-select {
+  border: 1px solid #EDEDED;
+  border-radius: 5px;
+}
+
+/* Profile Cards */
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+  object-fit: cover;
+  width: 100%;
+  height: 200px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.card h5 {
+  font-weight: bold;
+  color: #CC142F; /* Simac Red */
+}
+
+.card p {
+  color: #394348;
 }
 
 /* Buttons */
+.btn-outline-primary {
+  color: #CC142F; /* Simac Red */
+  border-color: #CC142F;
+  font-weight: bold;
+}
+
+.btn-outline-primary:hover {
+  background-color: #CC142F;
+  color: white;
+}
+
+/* Profile Header */
+.profile-header {
+  text-align: center;
+  padding: 2rem;
+  background-color: #EDEDED;
+  border-bottom: 4px solid #CC142F;
+}
+
+.profile-header img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #CC142F; /* Simac Red */
+}
+
+.profile-header h1 {
+  color: #CC142F;
+  font-weight: bold;
+}
+
+.profile-header p {
+  color: #394348;
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 1.5rem;
+  color: #005876; /* Simac Blue */
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Fonts and Typography */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #F8F9FA;
+  color: #394348;
+}
+
+h1, h2, h5 {
+  font-family: 'Geogrotesque', sans-serif;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #CC142F; /* Simac red */
+  font-weight: bold;
+}
+
+h2 {
+  color: #005876; /* Simac blue */
+  font-weight: bold;
+}
+
+h5 {
+  color: #CC142F; /* Simac red */
+  font-weight: bold;
+}
+
+/* Cards and Buttons */
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #FFFFFF;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.icon-circle {
+  background-color: #EDEDED;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+}
+
+.icon-circle i {
+  font-size: 1.5rem;
+  color: #CC142F; /* Simac red */
+}
+
 .btn-primary {
-  background-color: #CC142F; /* Simac Red */
+  background-color: #CC142F;
   border-color: #CC142F;
 }
 
@@ -42,9 +174,55 @@
   color: white;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 992px) {
-  .navbar .btn {
-    font-size: 0.9rem;
-  }
+/* Video Section Styling */
+.video-section {
+  position: relative;
+  overflow: hidden;
+  height: 60vh;
+}
+
+.video-section iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+footer {
+  background-color: #394348;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+footer a {
+  color: #CC142F;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+#employeeNetwork {
+  background-color: #F8F9FA;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+#connectionsGraph {
+  width: 100%;
+  height: 500px;
+  border: 1px solid #ccc;
+  background-color: #F8F9FA;
+  border-radius: 10px;
+}
+.card img {
+  object-fit: cover; /* Ensures the image covers the specified dimensions */
+  width: 100%; /* Matches the width of the card */
+  height: 200px; /* Fixed height for all images */
+  border-top-left-radius: 15px; /* Matches the card's border radius */
+  border-top-right-radius: 15px; /* Matches the card's border radius */
 }

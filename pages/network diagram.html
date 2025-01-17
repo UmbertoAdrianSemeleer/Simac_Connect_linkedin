@@ -10,6 +10,36 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.23.0/cytoscape.min.js"></script>
 </head>
 <body>
+
+  
+  
+<!-- Dropdown Filter for Departments -->
+<div id="department-filters">
+  <label for="department-filter">Filter by Department:</label>
+  <select id="department-filter">
+    <option value="all">Show All</option>
+    <option value="connectivity">Connectivity</option>
+    <option value="security">Security</option>
+    <option value="multicloud">Multicloud</option>
+    <option value="sap">SAP Services</option>
+    <option value="support">Support Services</option>
+    <option value="workplace">Digital Workplace</option>
+  </select>
+</div>
+
+<!-- Dropdown Filter for Relationships -->
+<div id="relationship-filters">
+  <label for="relationship-filter">Filter by Relationships:</label>
+  <select id="relationship-filter">
+    <option value="all">Show All</option>
+    <option value="manager-employee">Manager to Employee</option>
+    <option value="manager-client">Manager to Client</option>
+    <option value="employee-collaboration">Employee Collaboration</option>
+  </select>
+</div>
+
+
+
   <!-- Container for the graph -->
   <div id="simac-it-graph" class="graph-container"></div>
 

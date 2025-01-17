@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const roleFilter = document.getElementById("roleFilter");
   const profilesContainer = document.getElementById("profilesContainer");
 
-  // Render profiles
+  // Render profiles dynamically
   function renderProfiles(filter = {}) {
     profilesContainer.innerHTML = "";
 
@@ -21,21 +21,16 @@ document.addEventListener("DOMContentLoaded", function () {
       return matchesSearch && matchesDepartment && matchesRole;
     });
 
-    if (filteredProfiles.length === 0) {
-      profilesContainer.innerHTML = `<p class="text-center">No results found.</p>`;
-      return;
-    }
-
     filteredProfiles.forEach(profile => {
       const card = `
         <div class="col-md-4">
-          <div class="profile-card">
-            <img src="${profile.image}" alt="${profile.name}">
-            <div class="p-3">
-              <h5>${profile.name}</h5>
-              <p><strong>Role:</strong> ${profile.role}</p>
-              <p><strong>Department:</strong> ${profile.department}</p>
-              <p><strong>Skills:</strong> ${profile.skills}</p>
+          <div class="card">
+            <img src="${profile.image}" class="card-img-top" alt="${profile.name}">
+            <div class="card-body">
+              <h5 class="card-title">${profile.name}</h5>
+              <p class="card-text"><strong>Role:</strong> ${profile.role}</p>
+              <p class="card-text"><strong>Department:</strong> ${profile.department}</p>
+              <p class="card-text"><strong>Skills:</strong> ${profile.skills}</p>
               <a href="profile.html?id=${profile.id}" class="btn btn-outline-primary w-100">View Profile</a>
             </div>
           </div>
@@ -76,19 +71,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
   // Load Header
-  fetch("components/header.html")
+  fetch("../components/header.html")
     .then(response => response.text())
     .then(data => document.getElementById("header-placeholder").innerHTML = data);
 
   // Load Footer
-  fetch("components/footer.html")
+  fetch("../components/footer.html")
     .then(response => response.text())
     .then(data => document.getElementById("footer-placeholder").innerHTML = data);
 
-  // "Get Started" Button Event
-  document.getElementById("getStartedBtn").addEventListener("click", function () {
-    const isLoggedIn = true; // Replace with actual authentication check
-    const redirectUrl = isLoggedIn ? "pages/connect.html" : "pages/login.html";
-    window.location.href = redirectUrl;
-  });
+  // Search and Filter Logic (Your existing code goes here)
 });
