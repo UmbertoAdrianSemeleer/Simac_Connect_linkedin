@@ -1,0 +1,68 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100%;
+}
+
+#container {
+  display: flex;
+  height: 100%;
+}
+
+#sidebar {
+  width: 250px;
+  padding: 15px;
+  background: #f4f4f4;
+  border-right: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#sidebar h3, #sidebar label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#sidebar input, #sidebar select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#details-panel {
+  margin-top: 20px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#details-panel p span {
+  font-weight: bold;
+}
+
+#view-profile {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background: #0074D9;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#view-profile:hover {
+  background: #005bb5;
+}
+
+#company-graph {
+  flex-grow: 1;
+  height: 100%;
+  border: 1px solid #ccc;
+}
